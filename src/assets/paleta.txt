@@ -1,0 +1,3 @@
+#5BC0EB -> azul pastel
+#A5FFD6 -> verde pastel 
+#EEE5E9 -> branco creme
