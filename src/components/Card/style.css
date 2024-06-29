@@ -1,0 +1,47 @@
+.card {
+    display: inline-flex;
+    gap: 40px;
+    flex-direction: column;
+    background-color: #e5e8ee;
+    padding: 40px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.card:hover .title i {
+    color: #5BC0EB;
+}
+
+.card:active {
+    transform: scale(1.1);
+}
+
+.card .title {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    color: #000;
+    padding: 0 30px;
+}
+
+.card .title h2 {
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.card .title i {
+    font-size: 28px;
+    transition: .2s;
+}
+
+.card .values {
+    text-align: center;
+    font-weight: 600;
+    font-size: 32px;
+}
+
+#entradas span{color: #4ec94e;}
+#saidas span{color: #ff0000;}
+#entradas:hover i {color: #4ec94e;;}
+#saidas:hover i{color: #ff0000;}
