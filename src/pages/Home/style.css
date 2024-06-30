@@ -27,7 +27,7 @@ a {
 main {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 30px;
 }
 
 .box-cards {
@@ -178,7 +178,7 @@ main {
 .box-history {
     background: var(--white-cream) ;
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: 10px 20px 0;
     margin-bottom: 50px;
 }
 
@@ -221,3 +221,21 @@ main {
 
 .box-history table .tipo-entrada{color: #4EC94E}
 .box-history table .tipo-saida{color: #ff0000}
+
+.empty-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.empty-box h3 {
+    color: #fff;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #5BC0EB;
+    width: fit-content;
+    margin: -30px auto 20px;
+}
+
+.empty-box img {
+    margin-top: -30px;
+}

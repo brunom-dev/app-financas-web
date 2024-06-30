@@ -1,14 +1,16 @@
 import './style.css'
 import React, { useEffect, useState } from 'react'
 
+import emptyImg from '../../assets/empty.svg'
+
 import { Header } from '../../components/Header'
 import { Card } from '../../components/Card'
 
 export const Home = () => {
     
 
-    const [entradas, setEntradas] = useState(2)
-    const [saidas, setSaidas] = useState(1)
+    const [entradas, setEntradas] = useState(0)
+    const [saidas, setSaidas] = useState(0)
     const total = entradas - saidas;
 
 
@@ -27,8 +29,9 @@ export const Home = () => {
             tipo
         }
 
+
+
         setTransferencias([...transferencias, transferencia])
-        console.log(transferencias)
     }
 
     return (
@@ -90,7 +93,7 @@ export const Home = () => {
                                 type="checkbox" 
                                 className="hidden-toggle" 
                                 value={tipo} 
-                                onChange={e => setTipo(e.target.value)}
+                                onChange={e => setTipo(e.target.checked)}
                             />
                             <div className="slider">
                                 <div className="button"></div>
@@ -118,20 +121,35 @@ export const Home = () => {
                             </tr>
                         </thead>
 
-                        {transferencias.map((transf) => {
-                            return (
-                            <tbody>
-                                <td>{transf.titulo}</td>
-                                <td>{transf.tipo ? 'Saida' : 'Entrada'}</td>
-                                {
-                                    transf.tipo ? 
-                                    <td className='tipo-saida'>{(transf.valor)}</td>
-                                    :
-                                    <td className='tipo-entrada'>{(transf.valor)}</td>
-                                }
-                            </tbody>
-                            )
-                        })}
+                        {
+                        transferencias.length > 0 ? 
+                            transferencias.map((transf) => {
+                                return (
+                                <tbody>
+                                    <td>{transf.titulo}</td>
+                                    <td>{transf.tipo ? 'Saida' : 'Entrada'}</td>
+                                    
+                                    {
+                                        transf.tipo  ?  
+                                            <td className='tipo-saida'>-{(transf.valor)}</td>
+                                        :
+                                            <td className='tipo-entrada'>+{(transf.valor)}</td>
+                                    }
+
+                                    
+                                </tbody>
+                                )
+                            })
+                        :
+                            <tr>
+                                <td colSpan={3}>
+                                    <div className='empty-box'>
+                                        <img src={emptyImg} alt="Ilustracao" height={250} />
+                                        <h3>Ops, nenhuma transferencia foi registrada!</h3>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
 
 
 
