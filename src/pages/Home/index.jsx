@@ -9,16 +9,14 @@ import { Card } from '../../components/Card'
 export const Home = () => {
     
 
-    const [entradas, setEntradas] = useState(0)
-    const [saidas, setSaidas] = useState(0)
-    const total = entradas - saidas;
+    const [entradas, setEntradas] = useState(Number)
+    const [saidas, setSaidas] = useState(Number)
+    const total = Number(entradas - saidas)
 
 
     const [titulo, setTitulo] = useState('')
-    const [valor, setValor] = useState(0)
+    const [valor, setValor] = useState(Number)
     const [tipo, setTipo] = useState(false)
-    // todo - ENTRADA = false
-    // todo - SAIDA = true
 
     const [transferencias, setTransferencias] = useState([])
 
@@ -28,10 +26,17 @@ export const Home = () => {
             titulo,
             tipo
         }
-
-
-
         setTransferencias([...transferencias, transferencia])
+            
+            setTitulo('')
+            setTipo(false)
+            setValor(0)
+
+        if (transferencia.tipo) {
+            setSaidas(Number(saidas) + Number(transferencia.valor))
+        } else {
+            setEntradas(Number(entradas) + Number(transferencia.valor))
+        }
     }
 
     return (
@@ -42,7 +47,7 @@ export const Home = () => {
                 <div className='box-cards'>
                     <Card 
                         title={"Entradas"} 
-                        icone={<i className="bi bi-arrow-up-circle-fill"></i>} values={entradas.toFixed(2)} 
+                        icone={<i className="bi bi-arrow-up-circle-fill"></i>} values={entradas.toFixed(2)}
                         identificador='entradas'
                     />
 
@@ -92,8 +97,9 @@ export const Home = () => {
                             <input 
                                 type="checkbox" 
                                 className="hidden-toggle" 
-                                value={tipo} 
+                                checked={tipo}
                                 onChange={e => setTipo(e.target.checked)}
+                                
                             />
                             <div className="slider">
                                 <div className="button"></div>
