@@ -2,6 +2,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
+:root {
+    --white-cream: #E5E8EE;
+    --blue-light: #5BC0EB ;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -14,10 +19,205 @@ a {
     color: #fff;
 }
 
+.content {
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
 
 .box-cards {
     display: flex;
     gap: 50px;
-    margin-top: -50px;
-    justify-content: center;
+    margin: -65px 0 0;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
+
+.box-input {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+    align-items: center;
+    background-color: var(--white-cream);
+    border-radius: 10px ;
+}
+
+.box-input .container-input label {
+    font-size: 18px;
+    margin-right: 5px;
+    font-family: 'Inter';
+    font-weight: 600;
+}
+
+.box-input .container-input:nth-of-type(1) {
+    width: 40%;
+} 
+
+.box-input .container-input:nth-of-type(2) {
+
+    width: 20%;
+}
+
+.box-input #valor {
+    font-size: 16px;
+    padding: 5px 10px;
+    border: 0;
+    border-radius: 2px;
+    outline: none;
+    text-decoration: none;
+    width: 100px;
+}
+
+.box-input #titulo {
+    width: 60%;
+    font-size: 16px;
+    border: 0;
+    border-radius: 2px;
+    padding: 2px 10px;
+    outline: none;
+    text-decoration: none;
+}
+
+
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 50px;
+}
+
+.switch > .hidden-toggle {
+  display: none;
+}
+
+.switch > .slider {
+  background: #4EC94E;
+  border: 0.1rem solid #a9f2fd;
+  cursor: pointer;
+  border-radius: 2rem;
+  transition: all 300ms ease-in-out;
+  width: 7rem;
+  height: 2rem;
+  position: relative;
+}
+
+.switch > .slider > .button{
+  content: "";
+  position: absolute;
+  width: 1.1rem;
+  height: 1.1rem;
+  background: #ffffff;
+  top: 0.4rem;
+  left: 0.4rem;
+  transition: all 300ms ease-in-out;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.switch > .slider:after {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translate(0, -50%);
+  font-size: 1rem;
+  line-height: 1.4rem;
+  color: #fff;
+  font-weight: bold;
+  z-index: 1;
+  transition: all 300ms ease-in-out;
+  content: "Entrada";
+}
+
+.switch > .hidden-toggle:checked ~ .slider {
+  background: #FF0000;
+}
+
+.switch > .hidden-toggle:checked ~ .slider > .button {
+  left: 5rem;
+  background: #fff;
+}
+
+.switch > .hidden-toggle:checked ~ .slider:after {
+  right: 3rem;
+  color: #f1f1ff;
+  content: "Saida";
+}
+
+
+.box-input .submit  {
+    width: 10%
+}
+
+.box-input .submit button {
+    padding: 8px 20px;
+    background-color: var(--blue-light);
+    color: #fff;
+    border: 0;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.box-input .submit button:active {
+    transform: scale(0.9);
+}
+
+.box-input .submit button:disabled {
+    background-color: #bbb;
+
+}
+
+
+.box-history {
+    background: var(--white-cream) ;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-bottom: 50px;
+}
+
+.box-history table {
+    width: 100%;
+    text-align: center;
+}
+
+.box-history table .desc {
+    width: 50%;
+    font-size: 20px;
+    padding: 10px 0;
+    background-color: var(--blue-light);
+    color: #fff;
+    border-radius: 5px;
+}
+
+.box-history table .tipo {
+    width: 25%;
+    font-size: 20px;
+    padding: 10px 0;
+    background-color: var(--blue-light);
+    color: #fff;
+    border-radius: 5px;
+}
+
+.box-history table .val {
+    font-size: 20px;
+    padding: 10px 0;
+    background-color: var(--blue-light);
+    color: #fff;
+    border-radius: 5px;
+}
+
+
+.box-history table td {
+    padding: 10px 0;
+    font-weight: bold;
+}
+
+.box-history table .tipo-entrada{color: #4EC94E}
+.box-history table .tipo-saida{color: #ff0000}

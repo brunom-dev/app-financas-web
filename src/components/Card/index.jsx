@@ -8,7 +8,7 @@ export const Card = (props) => {
                 {props.icone}
             </div>
             <div className="values">
-                <span>{props.values}</span>
+                <span>R$ {props.values}</span>
             </div>    
         </div>  
     )
