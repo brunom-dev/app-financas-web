@@ -126,7 +126,7 @@ export const Home = () => {
                 </div>
 
                 <div className='box-input'>
-                    <div className='container-input'>
+                    <div className='container-input item-input'>
                         <label htmlFor="titulo">Titulo:</label>
                         <input
                             type="text"
@@ -138,7 +138,7 @@ export const Home = () => {
                     </div>
 
 
-                    <div className='container-input'>
+                    <div className='container-input item-input'>
                         <label htmlFor="valor">Valor: R$</label>
                         <input
                             type="number"
@@ -152,7 +152,7 @@ export const Home = () => {
                         />
                     </div>
 
-                    <div className="toggle-wrapper">
+                    <div className="toggle-wrapper item-input">
                         <label className="switch">
                             <input 
                                 type="checkbox" 
@@ -167,7 +167,7 @@ export const Home = () => {
                         </label>
                     </div>
 
-                    <div className="submit">
+                    <div className="submit item-input">
                         <button 
                             disabled={(valor == 0 || titulo.length == 0)}
                             onClick={() => handleRegister(valor, titulo, tipo)}

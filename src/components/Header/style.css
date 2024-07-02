@@ -50,5 +50,24 @@ header .menu li a span {
     transition: width .5s;
 }
 
+@media screen and (max-width: 850px ){
+    header .menu li a:hover span {
+        width: 0;
+    }
+}
+
+@media screen and (max-width: 550px ) {
+    header { 
+        justify-content: center;
+    }
+
+    header .menu ul {
+        display: none;
+    }   
+
+    header .box-logo-principal h1 {
+        font-size: 2.4rem;
+    }
+}
 
   

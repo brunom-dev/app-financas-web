@@ -23,6 +23,7 @@
     gap: 50px;
     color: #000;
     padding: 0 30px;
+    margin: 0 auto;
 }
 
 .card .title h2 {
@@ -45,3 +46,33 @@
 #saidas span{color: #ff0000;}
 #entradas:hover i {color: #4ec94e;;}
 #saidas:hover i{color: #ff0000;}
+
+
+@media screen and (max-width: 920px) {
+    .card {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 860px) {
+    .card {
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 600px) { 
+    .card {
+        width: 60%;
+        text-align: center;
+        gap: 20px;
+        padding-top: 30px;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .card {
+        width: 80%;
+    }
+}
+
+
