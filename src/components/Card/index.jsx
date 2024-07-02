@@ -2,7 +2,7 @@ import "./style.css"
 
 export const Card = (props) => {
     return (
-        <div className="card" id={props.identificador}>
+        <div className="card" id={props.identificador} onClick={props.onClick}>
             <div className="title">
                 <h2>{props.title}</h2>
                 {props.icone}

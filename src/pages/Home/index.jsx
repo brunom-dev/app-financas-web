@@ -7,7 +7,6 @@ import { Header } from '../../components/Header'
 import { Card } from '../../components/Card'
 
 export const Home = () => {
-    
 
     const [entradas, setEntradas] = useState(Number)
     const [saidas, setSaidas] = useState(Number)
@@ -18,7 +17,9 @@ export const Home = () => {
     const [valor, setValor] = useState(Number)
     const [tipo, setTipo] = useState(false)
 
+
     const [transferencias, setTransferencias] = useState([])
+    const [transferenciasFiltradas, setTransferenciasFiltradas] = useState([])
 
     function handleRegister(valor, titulo, tipo) {
         const transferencia = {
@@ -27,10 +28,10 @@ export const Home = () => {
             tipo
         }
         setTransferencias([...transferencias, transferencia])
-            
-            setTitulo('')
-            setTipo(false)
-            setValor(0)
+
+        setTitulo('')
+        setTipo(false)
+        setValor(Number)
 
         if (transferencia.tipo) {
             setSaidas(Number(saidas) + Number(transferencia.valor))
@@ -38,6 +39,52 @@ export const Home = () => {
             setEntradas(Number(entradas) + Number(transferencia.valor))
         }
     }
+
+    function handleFilter(filter) {
+        return transferencias.filter((transf) => {
+            return transf.tipo == filter
+        })
+    }   
+
+    useEffect(() => {
+
+        const tranferenciasLocal = localStorage.getItem('@financas')
+
+        if (tranferenciasLocal) {
+            setTransferencias(JSON.parse(tranferenciasLocal))
+        }
+
+    }, [])
+
+    useEffect(() => {
+        const entradasList = transferencias.filter(transf => {
+            if (!transf.tipo) {
+                return transf.valor
+            }
+        })
+        const entradasTotal = entradasList.reduce((acumulador, valorAtual) => {
+            return acumulador + valorAtual.valor
+        }, 0)
+            
+        const saidasList = transferencias.filter(transf => {
+            if (transf.tipo) {
+                return transf.valor
+            }
+        })
+        const saidasTotal = saidasList.reduce((acumulador, valorAtual) => {
+            return acumulador + valorAtual.valor
+        }, 0)
+
+        setEntradas(Number(entradasTotal))
+        setSaidas(Number(saidasTotal))
+    }, [transferencias])
+
+    useEffect(() => {
+        if (transferencias) {
+            localStorage.setItem('@financas', JSON.stringify(transferencias))
+        }
+    }, [transferencias])
+    
 
     return (
         <>
@@ -47,20 +94,33 @@ export const Home = () => {
                 <div className='box-cards'>
                     <Card 
                         title={"Entradas"} 
-                        icone={<i className="bi bi-arrow-up-circle-fill"></i>} values={entradas.toFixed(2)}
+                        icone={<i className="bi bi-arrow-up-circle-fill"></i>} values={Number(entradas).toFixed(2)}
                         identificador='entradas'
+                        onClick={() => {
+                            setTransferenciasFiltradas(
+                                handleFilter(false)
+                            )
+                        }}
                     />
 
                     <Card 
                         title={"Saidas"} 
-                        icone={<i className="bi bi-arrow-down-circle-fill"></i>} values={saidas.toFixed(2)} 
+                        icone={<i className="bi bi-arrow-down-circle-fill"></i>} values={Number(saidas).toFixed(2)}
                         identificador='saidas'
+                        onClick={() =>  {
+                            setTransferenciasFiltradas(
+                                handleFilter(true)
+                            )
+                        }}
                     />
 
                     <Card 
                         title={"Total"}
                         icone={<i className="bi bi-database-fill-check"></i>}
-                        values={total.toFixed(2)}
+                        values={Number(total).toFixed(2)}
+                        onClick={() => {
+                            setTransferenciasFiltradas([])
+                        }}
                         
                     />
                 </div>
@@ -126,36 +186,59 @@ export const Home = () => {
                                 <th className='val'>Valor (R$)</th>
                             </tr>
                         </thead>
+                        
+                            {
+                                transferencias.length > 0 ? 
+                                    (
+                                        transferenciasFiltradas.length > 0 ?  
+                                            transferenciasFiltradas.map((transf) => {
+                                                return (
+                                                <tbody>
+                                                    <td>{transf.titulo}</td>
+                                                    <td>{transf.tipo ? 'Saida' : 'Entrada'}</td>
+                                                    
+                                                    {
+                                                        transf.tipo  ?  
+                                                            <td className='tipo-saida'>-{(transf.valor)}</td>
+                                                        :
+                                                            <td className='tipo-entrada'>+{(transf.valor)}</td>
+                                                    }
 
-                        {
-                        transferencias.length > 0 ? 
-                            transferencias.map((transf) => {
-                                return (
-                                <tbody>
-                                    <td>{transf.titulo}</td>
-                                    <td>{transf.tipo ? 'Saida' : 'Entrada'}</td>
-                                    
-                                    {
-                                        transf.tipo  ?  
-                                            <td className='tipo-saida'>-{(transf.valor)}</td>
+                                                    
+                                                </tbody>
+                                                )
+                                            })
                                         :
-                                            <td className='tipo-entrada'>+{(transf.valor)}</td>
-                                    }
+                                            transferencias.map((transf) => {
+                                                return (
+                                                <tbody>
+                                                    <td>{transf.titulo}</td>
+                                                    <td>{transf.tipo ? 'Saida' : 'Entrada'}</td>
+                                                    
+                                                    {
+                                                        transf.tipo  ?  
+                                                            <td className='tipo-saida'>-{(transf.valor)}</td>
+                                                        :
+                                                            <td className='tipo-entrada'>+{(transf.valor)}</td>
+                                                    }
 
-                                    
-                                </tbody>
-                                )
-                            })
-                        :
-                            <tr>
-                                <td colSpan={3}>
-                                    <div className='empty-box'>
-                                        <img src={emptyImg} alt="Ilustracao" height={250} />
-                                        <h3>Ops, nenhuma transferencia foi registrada!</h3>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
+                                                    
+                                                </tbody>
+                                                )
+                                            })  
+                                    )
+                                :
+                                    (
+                                        <tr>
+                                            <td colSpan={3}>
+                                                <div className='empty-box'>
+                                                    <img src={emptyImg} alt="Ilustracao" height={250} />
+                                                    <h3>Ops, nenhuma transferencia foi registrada!</h3>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )
+                            }
 
 
 
