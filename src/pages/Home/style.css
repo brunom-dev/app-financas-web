@@ -34,7 +34,6 @@ main {
     display: flex;
     gap: 50px;
     margin: -65px 0 0;
-    flex-wrap: wrap;
     justify-content: space-between;
 }
 

@@ -63,7 +63,7 @@ export const Home = () => {
             }
         })
         const entradasTotal = entradasList.reduce((acumulador, valorAtual) => {
-            return acumulador + valorAtual.valor
+            return acumulador + Number(valorAtual.valor)
         }, 0)
             
         const saidasList = transferencias.filter(transf => {
@@ -72,7 +72,7 @@ export const Home = () => {
             }
         })
         const saidasTotal = saidasList.reduce((acumulador, valorAtual) => {
-            return acumulador + valorAtual.valor
+            return acumulador + Number(valorAtual.valor)
         }, 0)
 
         setEntradas(Number(entradasTotal))
