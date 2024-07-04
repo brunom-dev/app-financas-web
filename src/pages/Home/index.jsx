@@ -31,7 +31,7 @@ export const Home = () => {
 
         setTitulo('')
         setTipo(false)
-        setValor(Number)
+        setValor(Number(0))
 
         if (transferencia.tipo) {
             setSaidas(Number(saidas) + Number(transferencia.valor))
@@ -47,44 +47,51 @@ export const Home = () => {
     }   
 
     useEffect(() => {
+        function getTransferysLocalStorage() {
+            const tranferenciasLocal = localStorage.getItem('@financas')
 
-        const tranferenciasLocal = localStorage.getItem('@financas')
-
-        if (tranferenciasLocal) {
-            setTransferencias(JSON.parse(tranferenciasLocal))
+            if (tranferenciasLocal) {
+                setTransferencias(JSON.parse(tranferenciasLocal))
+            }
         }
 
+        getTransferysLocalStorage()
     }, [])
 
     useEffect(() => {
-        const entradasList = transferencias.filter(transf => {
-            if (!transf.tipo) {
-                return transf.valor
-            }
-        })
-        const entradasTotal = entradasList.reduce((acumulador, valorAtual) => {
-            return acumulador + Number(valorAtual.valor)
-        }, 0)
-            
-        const saidasList = transferencias.filter(transf => {
-            if (transf.tipo) {
-                return transf.valor
-            }
-        })
-        const saidasTotal = saidasList.reduce((acumulador, valorAtual) => {
-            return acumulador + Number(valorAtual.valor)
-        }, 0)
 
-        setEntradas(Number(entradasTotal))
-        setSaidas(Number(saidasTotal))
-    }, [transferencias])
-
-    useEffect(() => {
-        if (transferencias) {
-            localStorage.setItem('@financas', JSON.stringify(transferencias))
+        function setTransferysLocalStorage() {
+            if (transferencias) {
+                localStorage.setItem('@financas', JSON.stringify(transferencias))
+            }
         }
-    }, [transferencias])
+        function getEntradasAndSaidas() {
+            const entradasList = transferencias.filter(transf => {
+                if (!transf.tipo) {
+                    return transf.valor
+                }
+            })
+            const entradasTotal = entradasList.reduce((acumulador, valorAtual) => {
+                return acumulador + Number(valorAtual.valor)
+            }, 0)
+                
+            const saidasList = transferencias.filter(transf => {
+                if (transf.tipo) {
+                    return transf.valor
+                }
+            })
+            const saidasTotal = saidasList.reduce((acumulador, valorAtual) => {
+                return acumulador + Number(valorAtual.valor)
+            }, 0)
     
+            setEntradas(Number(entradasTotal))
+            setSaidas(Number(saidasTotal))
+        }
+
+        setTransferysLocalStorage()
+        getEntradasAndSaidas()
+
+    }, [transferencias])
 
     return (
         <>
