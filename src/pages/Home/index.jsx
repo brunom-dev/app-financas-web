@@ -46,6 +46,12 @@ export const Home = () => {
         })
     }   
 
+    function handleRemove(index) {
+        let transferenciasNovas = [...transferencias];
+        transferenciasNovas.splice(index, 1)
+        setTransferencias(transferenciasNovas)
+    }
+
     useEffect(() => {
         function getTransferysLocalStorage() {
             const tranferenciasLocal = localStorage.getItem('@financas')
@@ -201,7 +207,21 @@ export const Home = () => {
                                             transferenciasFiltradas.map((transf) => {
                                                 return (
                                                 <tbody>
-                                                    <td>{transf.titulo}</td>
+                                                    <td className='td-data-titulo'>
+                                                        <span className='span-titulo'>{transf.titulo}</span>
+                                                        <i 
+                                                            className="bi bi-trash-fill button-remove"
+                                                            onClick={
+                                                                () => {
+                                                                    let indexTransf = transferencias.indexOf(transf, 0)
+                                                                    handleRemove(indexTransf)
+                                                                    setTransferenciasFiltradas([])
+                                                                }
+                                                            }
+                                                            >
+
+                                                        </i>
+                                                    </td>
                                                     <td>{transf.tipo ? 'Saida' : 'Entrada'}</td>
                                                     
                                                     {
@@ -219,7 +239,19 @@ export const Home = () => {
                                             transferencias.map((transf) => {
                                                 return (
                                                 <tbody>
-                                                    <td>{transf.titulo}</td>
+                                                    <td className='td-data-titulo'>
+                                                        <span className='span-titulo'>{transf.titulo}</span>
+                                                        <i 
+                                                            className="bi bi-trash-fill button-remove" 
+                                                            onClick={
+                                                                () => {
+                                                                    let indexTransf = transferencias.indexOf(transf, 0)
+                                                                    handleRemove(indexTransf)
+                                                                }
+                                                            }>
+
+                                                            </i>
+                                                    </td>
                                                     <td>{transf.tipo ? 'Saida' : 'Entrada'}</td>
                                                     
                                                     {

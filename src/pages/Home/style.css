@@ -212,10 +212,40 @@ main {
     border-radius: 5px;
 }
 
-
 .box-history table td {
     padding: 10px 0;
     font-weight: bold;
+}
+
+.td-data-titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 5% ;
+
+}
+
+.span-titulo {
+    width: 80%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.button-remove {
+    padding: 5px 30px;
+    background-color: #FF0000;
+    color: #fff;
+    border-radius: 5px;
+    width: 20%;
+    cursor: pointer;
+    text-align: center;
+}
+
+
+.button-remove:hover {
+    transform: scale(1.08);
+    transition: .3s;
 }
 
 .box-history table .tipo-entrada{color: #4EC94E}
@@ -238,6 +268,8 @@ main {
 .empty-box img {
     margin-top: -30px;
 }
+
+
 
 @media screen and (max-width: 960px) {
     .box-input {
